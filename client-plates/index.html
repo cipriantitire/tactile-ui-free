@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<!-- Engraved Client Plates v0.1.0: Tactile UI
+     Put this file beside the folder and serve them over HTTP (any static
+     server that knows .woff2):
+       ./   client-plates.mjs, client-plates.css, InstrumentSans-Regular.woff2, InstrumentSans-Bold.woff2, InstrumentSans-OFL.txt
+     No framework, no build step, no image: the plates, marks and screws are
+     CSS and inline SVG. The clients are in CLIENTS in client-plates.mjs:
+     put your own there (name, kind, type, fixing, mark, number).
+     finish: 'auto' follows the nearest data-finish around the section. -->
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Customers</title>
+<link rel="stylesheet" href="./client-plates.css">
+<style>
+  body { margin: 0; }
+</style>
+</head>
+<body>
+<main id="customers"></main>
+<script type="module">
+import { mount } from './client-plates.mjs';
+
+const block = mount(document.getElementById('customers'), {
+  label: "Customers",
+  title: "Used in production by",
+  note: "1,940 teams run agents on Lode, from co-ops to banks.",
+  count: 6,
+  stats: true,
+  fixing: "mixed",
+  motion: "static",
+  speed: 40,
+  finish: "auto",
+});
+
+// block.update({ motion: 'drift' })   set the plates on the belt
+// block.paused                       true while the Pause key is down
+// block.destroy()                    removes the section and its observers
+</script>
+</body>
+</html>

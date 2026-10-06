@@ -1,0 +1,398 @@
+/* Odometer — TACTILE UI.
+   The object sizes itself from its numeral size (--od-size, set by the
+   component: filling its host in fit mode, or from the `size` option). Every
+   length below is in em of that size, so the drum geometry scales as one
+   piece. Lamp-dependent values (--od-shade, --od-spec, --od-wall, …) are
+   written by the component from the `light` option. */
+
+/* The drums are printed in Big Shoulders Bold (SIL OFL 1.1, see
+   BigShoulders-OFL.txt beside this file): the same figures on every platform.
+   `block`: until the face is in, the drums show no figures rather than a
+   fallback that jumps when it arrives. */
+@font-face {
+  font-family: 'Odometer Figures';
+  src: url('./big-shoulders-bold.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: block;
+}
+
+.od {
+  --od-size: 72px;
+  --od-face: 1.12em;   /* one face: the chord between two numerals */
+  --od-r: 1.7235em;    /* ten faces: radius = face / (2 tan 18°) */
+  --od-win: 1.56em;    /* the window shows ±27° of the drum */
+  --od-w: 0.6em;       /* drum width: a condensed figure on a narrow drum */
+  /* Printed stock is never a flat fill: a fine static grain, blended over the drum colour. */
+  --od-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' seed='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0.5 0.3 0.2 0 0  0.5 0.3 0.2 0 0  0.5 0.3 0.2 0 0  0 0 0 0 0.42'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  /* Brushing: long fine streaks along the plate. */
+  --od-brushed: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='120'%3E%3Cfilter id='b'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.0022 0.95' numOctaves='3' seed='11' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0.6 0.2 0.2 0 0.08  0.6 0.2 0.2 0 0.08  0.6 0.2 0.2 0 0.08  0 0 0 0 0.6'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23b)'/%3E%3C/svg%3E");
+  position: relative;
+  display: inline-block;
+  width: max-content;
+  vertical-align: middle;
+  font-size: var(--od-size);
+  line-height: 1;
+  font-family: 'Odometer Figures', Bahnschrift, 'DIN Alternate', 'DIN Condensed', 'Barlow Semi Condensed', 'Roboto Condensed', 'Arial Narrow', sans-serif;
+  font-weight: 700;
+  font-stretch: 87.5%;
+  font-synthesis: none;
+  font-variant-numeric: lining-nums;
+  font-kerning: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* The number, as text. Hidden from sight, read by everything else. */
+.od-text {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* The housing: a machined plate the window is cut into. Window in the
+   middle column, a printed prefix and suffix either side, an engraved label
+   under the window. */
+.od-plate {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto auto auto;
+  align-items: center;
+  padding: 0.2em 0.2em;
+  border: 0.028em solid;
+  border-color: var(--od-raise);
+  border-radius: 0.11em;
+  color: var(--od-plate-ink);
+  background:
+    var(--od-plate-sheen),
+    var(--od-brushed),
+    var(--od-metal);
+  background-origin: border-box;
+  background-size: 100% 100%, 100% 100%, 600px 120px, auto;
+  background-blend-mode: normal, normal, overlay, normal;
+  box-shadow: var(--od-plate-shadow), inset 0 0 0 0.006em rgb(0 0 0 / 0.35);
+  -webkit-user-select: none;
+  user-select: none;
+}
+/* Room at each end for a screw. */
+.od[data-bezel='slot'] .od-plate,
+.od[data-bezel='cells'] .od-plate { padding-inline: 0.42em; }
+.od-window { grid-column: 2; grid-row: 1; }
+
+/* The chamfers catch the lamp hardest at the corner nearest it (the plate's
+   edge) or farthest from it (the window's walls, which face back toward it):
+   a specular falloff laid over each side's own tone. The window's ring is
+   the plate's: an absolutely placed grid item takes the window's grid area as
+   its box, and the window itself clips its drums. */
+.od-plate::before,
+.od-plate::after {
+  content: '';
+  position: absolute;
+  z-index: 3;
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  pointer-events: none;
+}
+.od-plate::before {
+  inset: -0.028em;
+  padding: 0.028em;
+  border-radius: inherit;
+  background: var(--od-raise-hot);
+}
+.od-plate::after {
+  grid-column: 2 / 3; /* an absolute item's auto end line would be the padding edge */
+  grid-row: 1 / 2;
+  inset: 0;
+  padding: 0.036em;
+  border-radius: 0.055em;
+  background: var(--od-recess-hot);
+}
+.od[data-bezel='bare'] .od-plate::before,
+.od[data-bezel='bare'] .od-plate::after,
+.od[data-bezel='cells'] .od-plate::after { display: none; }
+
+/* A countersunk screw: the sink cut into the plate, the domed head in it,
+   the slot across the head. */
+.od-screw {
+  position: absolute;
+  top: 50%;
+  width: 0.17em;
+  height: 0.17em;
+  margin-top: -0.085em;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--od-metal-dark) 70%, var(--od-metal));
+  box-shadow: var(--od-screw-sink);
+}
+.od-screw-l { left: calc(0.21em - 0.085em); }
+.od-screw-r { right: calc(0.21em - 0.085em); }
+.od-screw::before {
+  content: '';
+  position: absolute;
+  inset: 0.022em;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at var(--od-screw-hl), rgb(255 255 255 / 0.9) 0, rgb(255 255 255 / 0) 34%),
+    radial-gradient(circle at var(--od-screw-hl), var(--od-screw) 0, color-mix(in srgb, var(--od-screw) 55%, #000) 78%, color-mix(in srgb, var(--od-screw) 30%, #000) 100%);
+  box-shadow: var(--od-screw-shadow);
+}
+.od-screw::after {
+  content: '';
+  position: absolute;
+  left: 0.032em;
+  right: 0.032em;
+  top: 50%;
+  height: 0.024em;
+  margin-top: -0.012em;
+  border-radius: 0.01em;
+  background: rgb(0 0 0 / 0.78);
+  box-shadow: 0 0.005em 0 rgb(255 255 255 / 0.28);
+  transform: rotate(var(--od-slot, 30deg));
+}
+
+.od-prefix,
+.od-suffix {
+  color: var(--od-plate-ink);
+  text-shadow: var(--od-engrave);
+  white-space: nowrap;
+}
+.od-prefix {
+  grid-column: 1;
+  grid-row: 1;
+  position: relative;
+  top: var(--od-lift, 0);
+  font-size: 0.6em;
+  padding-inline: 0 0.2em;
+}
+.od-suffix {
+  grid-column: 3;
+  grid-row: 1;
+  align-self: end;
+  font-size: 0.24em;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding-inline: 0.55em 0;
+  margin-bottom: 0.9em;
+}
+.od-suffix.od-mark {
+  /* A symbol after the number (€, %) is set like the prefix, not as a label. */
+  position: relative;
+  top: var(--od-lift, 0);
+  align-self: center;
+  font-size: 0.6em;
+  letter-spacing: 0;
+  text-transform: none;
+  padding-inline: 0.2em 0;
+  margin-bottom: 0;
+}
+
+/* The engraved label strip: letters cut into the plate and filled with
+   paint, ruled out to the window's edges. */
+.od-label {
+  grid-column: 2;
+  grid-row: 2;
+  /* The window's width, never more: a label longer than the window must not
+     widen its column (that would open a gap inside the window). It overflows
+     both ways instead, centred. */
+  width: 0;
+  min-width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7em;
+  margin-top: 0.55em;
+  margin-bottom: -0.15em;
+  font-size: 0.2em;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--od-plate-ink);
+  text-shadow: var(--od-engrave);
+}
+.od-label-t { margin-right: -0.3em; } /* the tracking after the last letter is not space */
+.od-label::before,
+.od-label::after {
+  content: '';
+  flex: 1 1 0;
+  min-width: 1em;
+  height: 0.12em;
+  border-radius: 0.1em;
+  background: color-mix(in srgb, var(--od-plate-ink) 55%, transparent);
+  box-shadow: var(--od-groove);
+}
+
+/* The window: a slot in the plate, with the drums behind it. */
+.od-window {
+  position: relative;
+  display: flex;
+  height: var(--od-win);
+  padding: 0 0.045em;
+  gap: 0.04em;
+  background: #050506;
+  border: 0.036em solid;
+  border-color: var(--od-recess);
+  border-radius: 0.055em;
+  overflow: hidden;
+  box-shadow: var(--od-chamfer);
+}
+
+/* Glass over it: the lamp's reflection, the refracting edge, the window's walls. */
+.od-glass,
+.od-lens {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  border-radius: inherit;
+  background: var(--od-glass);
+  box-shadow: var(--od-wall);
+}
+.od-lens { display: none; }
+
+/* One drum: ten printed figures around an axle, seen through the window. The
+   drum's surface is the cell (a cylinder's colour does not turn); the faces
+   carry only ink, so a smeared figure can run into the next without a seam. */
+.od-cell {
+  position: relative;
+  flex: none;
+  width: var(--od-w);
+  background: var(--od-rim), var(--od-grain), var(--od-drum);
+  background-size: auto, 140px 140px, auto;
+  background-blend-mode: normal, overlay, normal;
+}
+/* Flat, with perspective: each face carries its own whole transform. */
+.od-rot {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: var(--od-face);
+  margin-top: calc(var(--od-face) / -2);
+  perspective: 16em;
+}
+.od-face {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  backface-visibility: hidden;
+  color: var(--od-figure);
+}
+.od-ink {
+  position: relative;
+  font-size: 0.92em;
+  top: var(--od-lift, 0);
+  display: grid;
+  place-items: center;
+  opacity: var(--ink, 1);
+  transition: opacity 0.18s;
+}
+.od-blank .od-ink { opacity: 0; }
+.od-n,
+.od-m { grid-area: 1 / 1; }
+.od-n { opacity: calc(1 - var(--b, 0)); }
+/* The same figure smeared along the turn: shown as the drum speeds up. Long
+   enough that, at full speed, one figure's streak meets the next one's. */
+.od-m {
+  --s1: color-mix(in srgb, var(--od-figure) 6%, transparent);
+  --s2: color-mix(in srgb, var(--od-figure) 11%, transparent);
+  --s3: color-mix(in srgb, var(--od-figure) 16%, transparent);
+  --s4: color-mix(in srgb, var(--od-figure) 20%, transparent);
+  opacity: var(--b, 0);
+  color: transparent;
+  text-shadow:
+    0 -0.48em 0.1em var(--s1), 0 -0.4em 0.09em var(--s2), 0 -0.32em 0.08em var(--s3),
+    0 -0.24em 0.07em var(--s4), 0 -0.16em 0.06em var(--s4), 0 -0.08em 0.055em var(--s4),
+    0 0 0.05em var(--s4),
+    0 0.08em 0.055em var(--s4), 0 0.16em 0.06em var(--s4), 0 0.24em 0.07em var(--s4),
+    0 0.32em 0.08em var(--s3), 0 0.4em 0.09em var(--s2), 0 0.48em 0.1em var(--s1);
+}
+
+/* Light that does not turn: the drum rolls under it. */
+.od-cell::after,
+.od-sep::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: var(--od-spec), var(--od-shade);
+}
+
+/* The signal drum: the classic odometer tenths. */
+.od-red {
+  --od-drum: var(--od-signal);
+  --od-figure: var(--od-signal-figure);
+}
+
+/* Fixed plates between drums: group marks, the decimal point, the sign. */
+.od-sep {
+  position: relative;
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 0.22em;
+  background: var(--od-rim), var(--od-grain), var(--od-drum);
+  background-size: auto, 140px 140px, auto;
+  background-blend-mode: normal, overlay, normal;
+  color: var(--od-figure);
+}
+.od-sign { width: 0.4em; }
+.od-glyph { font-size: 0.92em; position: relative; top: var(--od-lift, 0); transition: opacity 0.18s, transform 0.18s; }
+.od-off .od-glyph { opacity: 0; }
+.od-sign.od-off .od-glyph { transform: rotateX(90deg); }
+
+/* A window per drum, like a tally counter. */
+.od[data-bezel='cells'] .od-window {
+  background: none;
+  border: 0;
+  overflow: visible;
+  box-shadow: none;
+  padding: 0;
+  gap: 0.1em;
+}
+.od[data-bezel='cells'] .od-glass { display: none; }
+.od[data-bezel='cells'] .od-cell {
+  overflow: hidden;
+  border: 0.03em solid;
+  border-color: var(--od-recess);
+  border-radius: 0.06em;
+  box-shadow: var(--od-chamfer);
+}
+.od[data-bezel='cells'] .od-lens { display: block; }
+.od[data-bezel='cells'] .od-sep {
+  background: none;
+  width: 0.2em;
+  color: var(--od-plate-ink);
+  text-shadow: var(--od-engrave);
+}
+.od[data-bezel='cells'] .od-sep::after { display: none; }
+
+/* No housing: the drums alone, to sit in a line of text. */
+.od[data-bezel='bare'] .od-plate {
+  background: none;
+  border: 0;
+  box-shadow: none;
+  padding: 0;
+  color: inherit;
+}
+.od[data-bezel='bare'] .od-prefix,
+.od[data-bezel='bare'] .od-suffix,
+.od[data-bezel='bare'] .od-label {
+  color: inherit;
+  text-shadow: none;
+}
+.od[data-bezel='bare'] .od-label::before,
+.od[data-bezel='bare'] .od-label::after { box-shadow: none; background: currentColor; opacity: 0.35; }
+.od[data-bezel='bare'] .od-prefix { font-size: 0.8em; padding-inline-end: 0.1em; }
+.od[data-bezel='bare'] .od-suffix:not(.od-mark) { font-size: 0.42em; margin-bottom: 0.3em; padding-inline-start: 0.3em; }
+.od[data-bezel='bare'] .od-suffix.od-mark { font-size: 0.8em; }
+.od[data-bezel='bare'] .od-window { border-width: 0.02em; border-radius: 0.08em; }
+
+@media (prefers-reduced-motion: reduce) {
+  .od-ink,
+  .od-glyph { transition: none; }
+}

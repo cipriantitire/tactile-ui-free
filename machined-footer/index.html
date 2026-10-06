@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<!-- Machined Footer v0.1.0: Tactile UI
+     Put this file beside the folder and serve them over HTTP (any static
+     server that knows .woff2):
+       ./   machined-footer.mjs, machined-footer.css, InstrumentSans-Regular.woff2, InstrumentSans-Bold.woff2, InstrumentSans-OFL.txt
+     No framework, no build step, no image. The finish selector writes
+     data-finish on <html> and remembers it in localStorage['tui-finish'];
+     the script in <head> restores it before first paint. -->
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<script>(function(){var f;try{f=localStorage.getItem('tui-finish')}catch(e){}if(f==='aluminium'||f==='graphite')document.documentElement.dataset.finish=f})()</script>
+<title>Footer</title>
+<link rel="stylesheet" href="./machined-footer.css">
+<style>
+  body { margin: 0; }
+</style>
+</head>
+<body>
+<main style="min-height: 40vh"></main>
+<div id="footer"></div>
+<script type="module">
+import { mount } from './machined-footer.mjs';
+
+const footer = mount(document.getElementById('footer'), {
+  brand: "Lode",
+  tagline: "The runtime for agents that touch production.",
+  status: "normal",
+  newsletter: true,
+  action: "",
+  finishSwitch: true,
+  rev: "2026.09",
+  build: "4f2a91c",
+  legal: "© 2026 Lode Systems Ltd. Registered in England and Wales.",
+  finish: "auto",
+});
+
+// footer.setStatus('outage')      the lamp turns red and the words say why
+// footer.root.addEventListener('mf-subscribe', (e) => fetch('/subscribe', { method: 'POST', body: e.detail.email }))
+// footer.destroy()                removes the footer and its listeners
+</script>
+</body>
+</html>

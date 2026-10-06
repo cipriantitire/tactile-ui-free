@@ -1,0 +1,62 @@
+/* Pull-cord Bulb — Tactile UI.
+   The lamp fills its host: give the host a width and a height. A tall narrow
+   host (56 × 150 px under a nav) is a header toggle; a wide one is a hero. */
+
+.pc {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 96px;
+  /* A vertical swipe over the empty wall still scrolls the page; only the grip takes the drag. */
+  touch-action: pan-y;
+  cursor: pointer;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+.pc canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: none;
+  /* Host resets (img, svg, canvas { max-width: 100% }, as in Tailwind's) would squeeze
+     the canvas's width and not its height. It sizes itself: leave it alone. */
+  max-width: none;
+  max-height: none;
+}
+
+/* The bulb's light on the wall adds to the page behind it, as light does. */
+.pc-light, .pc-glow { mix-blend-mode: screen; }
+
+/* The acorn's hit target: 44 px, following it, taking the pull on touch. */
+.pc-grip {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 44px;
+  height: 44px;
+  margin: -22px 0 0 -22px;
+  border-radius: 50%;
+  touch-action: none;
+  cursor: grab;
+}
+.pc.pc-held, .pc.pc-held .pc-grip { cursor: grabbing; }
+/* The focus ring hugs the acorn (its size is set as it draws); the grip stays 44 px. */
+.pc-grip::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: var(--pc-ring, 36px);
+  height: var(--pc-ring, 36px);
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+}
+.pc:focus-visible .pc-grip::after { outline: 2px solid var(--tui-focus, currentColor); outline-offset: 1px; }
+
+@media (forced-colors: active) {
+  .pc:focus-visible .pc-grip::after { outline-color: Highlight; }
+}

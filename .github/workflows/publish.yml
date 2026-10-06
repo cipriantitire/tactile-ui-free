@@ -1,0 +1,28 @@
+name: publish
+# Publishes odometer/ to npm as tactile-odometer when a tag odometer-v* is pushed.
+# Trusted publishing: npm trusts this workflow through OIDC, so there is no token
+# to leak. On npmjs.com, tactile-odometer > Settings > Trusted publisher must name
+# GitHub Actions, cipriantitire / tactile-ui-free / publish.yml.
+# Needs npm 11.5.1 or later, hence the upgrade below.
+on:
+  push:
+    tags:
+      - "odometer-v*"
+permissions:
+  contents: read
+  id-token: write
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: odometer
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: https://registry.npmjs.org
+      - run: npm install -g npm@latest
+      - run: npm test
+      - run: npm publish --access public

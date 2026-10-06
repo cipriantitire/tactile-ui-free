@@ -1,0 +1,291 @@
+/* Engraved Client Plates — TACTILE UI block, cut 2 (00.2). Everything under .cpl.
+   Face: Instrument Sans (SIL OFL 1.1), shipped beside this file with its
+   licence. The tokens are the Tactile UI Kit's own names and values, defined
+   here so the block needs nothing else; client-plates.mjs writes the resolved
+   finish on the root. */
+
+@font-face { font-family: 'CP Instrument Sans'; src: url('./InstrumentSans-Regular.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: 'CP Instrument Sans'; src: url('./InstrumentSans-Bold.woff2') format('woff2'); font-weight: 700; font-style: normal; font-display: swap; }
+
+/* ------------------------------------------------------------------ tokens */
+.cpl {
+  color-scheme: light;
+  --tui-desk: #d8d7d2;
+  --tui-face-hi: #f2f2ef;
+  --tui-well: #d3d4d0;
+  --tui-skirt: #a4a5a1;
+  --tui-ink: #1b1c1e;
+  --tui-ink-2: #4b4d51;
+  --tui-rule: rgb(27 28 30 / 0.16);
+  --tui-hl: rgb(255 255 255 / 0.9);
+  --tui-sh: 24 25 28;
+  --tui-sh-a: 0.24;
+  --tui-focus: #1b1c1e;
+  --tui-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --tui-well-fill: linear-gradient(to bottom, color-mix(in oklab, var(--tui-well) 86%, rgb(var(--tui-sh))), var(--tui-well) 55%);
+  --tui-inset:
+    inset 0 3px 3px -2px rgb(var(--tui-sh) / calc(var(--tui-sh-a) * 2.6)),
+    inset 0 9px 12px -9px rgb(var(--tui-sh) / calc(var(--tui-sh-a) * 1.8)),
+    inset 0 0 0 1px rgb(var(--tui-sh) / calc(var(--tui-sh-a) * 0.45)),
+    inset 0 -1px 0 color-mix(in oklab, var(--tui-hl) 60%, transparent),
+    0 1px 0 var(--tui-hl),
+    0 -1px 0 rgb(var(--tui-sh) / calc(var(--tui-sh-a) * 0.35));
+  --tui-pressed:
+    inset 0 5px 5px -4px rgb(var(--tui-sh) / calc(var(--tui-sh-a) * 3)),
+    inset 4px 0 4px -4px rgb(var(--tui-sh) / calc(var(--tui-sh-a) * 1.4)),
+    inset -4px 0 4px -4px rgb(var(--tui-sh) / calc(var(--tui-sh-a) * 1.4)),
+    0 -1px 0 rgb(var(--tui-sh) / calc(var(--tui-sh-a) * 1.3)),
+    0 1px 0 var(--tui-hl);
+  --tui-noise: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 0.28 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  --cpl-brush: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='120'%3E%3Cfilter id='b' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.0035 .9' numOctaves='2' seed='4' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .5 0 0 0 0 .5 1.6 0 0 0 -.62'/%3E%3C/filter%3E%3Crect width='300' height='120' filter='url(%23b)'/%3E%3C/svg%3E");
+  --cpl-brush-dark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='120'%3E%3Cfilter id='b' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.0035 .9' numOctaves='2' seed='4' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .5 0 0 0 0 .5 1.1 0 0 0 -.5'/%3E%3C/filter%3E%3Crect width='300' height='120' filter='url(%23b)'/%3E%3C/svg%3E");
+
+  /* The plate: brushed aluminium, the cut filled with dark enamel. */
+  --cpl-plate-hi: #eeeeea;
+  --cpl-plate: #dcdcd7;
+  --cpl-plate-lo: #c6c7c2;
+  --cpl-chamfer: linear-gradient(135deg, rgb(255 255 255 / 0.95), rgb(255 255 255 / 0.35) 30%, rgb(0 0 0 / 0.06) 55%, rgb(0 0 0 / 0.32));
+  --cpl-cut: #26272a;
+  --cpl-cut-2: #3d3e42;
+  --cpl-lip: rgb(255 255 255 / 0.92);
+  --cpl-wall: rgb(0 0 0 / 0.55);
+  --cpl-steel: #d9dad6;
+  --cpl-steel-lo: #8e8f8b;
+  --cpl-sans: 'CP Instrument Sans', 'Instrument Sans', ui-sans-serif, system-ui, sans-serif;
+
+  position: relative;
+  container: cpl / inline-size;
+  background: var(--tui-desk);
+  color: var(--tui-ink);
+  font: 400 15px/1.55 var(--cpl-sans);
+  font-feature-settings: 'tnum' 1;
+  -webkit-font-smoothing: antialiased;
+}
+/* Graphite: anodised black, the cut and the chamfer showing bright metal. */
+.cpl[data-finish='graphite'] {
+  color-scheme: dark;
+  --tui-desk: #0e0f10;
+  --tui-face-hi: #28292c;
+  --tui-well: #121315;
+  --tui-skirt: #09090a;
+  --tui-ink: #e8e6e1;
+  --tui-ink-2: #a6a7a9;
+  --tui-rule: rgb(232 230 225 / 0.11);
+  --tui-hl: rgb(255 255 255 / 0.11);
+  --tui-sh: 0 0 0;
+  --tui-sh-a: 0.55;
+  --tui-focus: #e8e6e1;
+  --tui-well-fill: linear-gradient(to bottom, #070808, var(--tui-well) 45%, #17181a);
+  --cpl-brush: var(--cpl-brush-dark);
+  --cpl-plate-hi: #2a2b2e;
+  --cpl-plate: #1c1d1f;
+  --cpl-plate-lo: #141517;
+  --cpl-chamfer: linear-gradient(135deg, rgb(236 237 233 / 0.95), rgb(200 201 197 / 0.6) 30%, rgb(120 121 118 / 0.55) 60%, rgb(70 71 69 / 0.8));
+  --cpl-cut: #d0d2cd;
+  --cpl-cut-2: #a9aba6;
+  --cpl-lip: rgb(255 255 255 / 0.16);
+  --cpl-wall: rgb(0 0 0 / 0.62);
+  --cpl-steel: #c7c8c4;
+  --cpl-steel-lo: #6a6b68;
+}
+.cpl *, .cpl *::before, .cpl *::after { box-sizing: border-box; }
+
+/* ------------------------------------------------------------------ layout */
+.cpl-wrap {
+  width: min(100% - 2 * clamp(20px, 5cqi, 64px), 1240px);
+  margin-inline: auto;
+  padding-block: clamp(48px, 7cqi, 104px);
+}
+.cpl-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  justify-content: space-between;
+  gap: 16px 48px;
+  margin-bottom: clamp(28px, 4cqi, 52px);
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--tui-rule);
+}
+.cpl-label {
+  margin: 0 0 12px;
+  font: 700 10.5px/1.2 var(--cpl-sans);
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--tui-ink-2);
+}
+.cpl-title {
+  margin: 0;
+  font: 700 clamp(26px, 2.8cqi, 36px)/1.05 var(--cpl-sans);
+  letter-spacing: -0.03em;
+}
+.cpl-side { display: flex; align-items: center; gap: 14px; }
+.cpl-note { margin: 0; max-width: 40ch; font-size: 14.5px; color: var(--tui-ink-2); text-wrap: pretty; }
+
+.cpl-list {
+  display: grid;
+  grid-template-columns: repeat(var(--cpl-cols-wide, 6), minmax(0, 1fr));
+  gap: clamp(18px, 2.2cqi, 32px) clamp(14px, 1.8cqi, 26px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.cpl-item { min-width: 0; }
+.cpl-stat {
+  margin: 12px 0 0;
+  padding-left: 2px;
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--tui-ink-2);
+  text-wrap: balance;
+}
+
+/* ------------------------------------------------------------------ the plate */
+.cpl-plate {
+  container-type: inline-size;
+  position: relative;
+  isolation: isolate;
+  aspect-ratio: 2.3 / 1;
+  border-radius: 6px;
+  background:
+    linear-gradient(160deg, rgb(255 255 255 / 0.22), transparent 38%, rgb(0 0 0 / 0.07)),
+    var(--cpl-brush) 0 0 / 300px 120px,
+    var(--tui-noise),
+    linear-gradient(180deg, var(--cpl-plate-hi), var(--cpl-plate) 55%, var(--cpl-plate-lo));
+  /* A thin plate: a short, soft shadow down and to the right. */
+  box-shadow:
+    0 0 0 0.5px rgb(var(--tui-sh) / calc(var(--tui-sh-a) * 1.4)),
+    0 1px 1px rgb(var(--tui-sh) / calc(var(--tui-sh-a) * 1.3)),
+    1px 5px 10px -4px rgb(var(--tui-sh) / calc(var(--tui-sh-a) * 1.6));
+}
+/* The chamfer: a 45° edge machined all round, catching the lamp top-left. */
+.cpl-plate::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  padding: max(1.5px, 1.1cqi);
+  background: var(--cpl-chamfer);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+}
+
+/* Fixings, set in from the corners. */
+.cpl-fix { position: absolute; width: max(8px, 6.2cqi); aspect-ratio: 1; line-height: 0; }
+.cpl-fix svg { width: 100%; height: 100%; overflow: visible; }
+.cpl-fix--tl { left: 4.6cqi; top: 4.6cqi; }
+.cpl-fix--tr { right: 4.6cqi; top: 4.6cqi; }
+.cpl-fix--bl { left: 4.6cqi; bottom: 4.6cqi; }
+.cpl-fix--br { right: 4.6cqi; bottom: 4.6cqi; }
+.cpl-fix--l { left: 4.2cqi; top: 50%; translate: 0 -50%; }
+.cpl-fix--r { right: 4.2cqi; top: 50%; translate: 0 -50%; }
+.cpl-sink { fill: rgb(var(--tui-sh) / calc(var(--tui-sh-a) * 1.5)); }
+.cpl-head { fill: var(--cpl-steel); }
+.cpl-shine { fill: rgb(255 255 255 / 0.85); }
+.cpl-slot { stroke: rgb(0 0 0 / 0.72); stroke-width: 1.15; stroke-linecap: round; }
+.cpl-slot-lip { stroke: rgb(255 255 255 / 0.7); stroke-width: 0.7; stroke-linecap: round; }
+.cpl-dome { fill: var(--cpl-steel-lo); }
+.cpl-dome-lo { fill: var(--cpl-steel); }
+.cpl-screw, .cpl-rivet { filter: drop-shadow(0.4px 0.7px 0.5px rgb(0 0 0 / 0.45)); }
+
+/* The cut: mark and name engraved alike — a shadow on the upper wall of
+   every cut and a lit lip on the lower one. The small line of type is cut
+   shallower: only its lip shows, or its thin strokes would be all wall. */
+.cpl-cut {
+  position: absolute;
+  inset: 0 12cqi;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5cqi;
+  color: var(--cpl-cut);
+}
+/* The engrave filter is an SVG filter in the section (its id in --cpl-engrave). */
+.cpl-mark, .cpl-word { filter: var(--cpl-engrave); }
+.cpl-kind { filter: drop-shadow(0 0.6px 0 var(--cpl-lip)); }
+.cpl-defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+.cpl-defs feFlood.cpl-f-lip { flood-color: var(--cpl-lip); }
+.cpl-defs feFlood.cpl-f-wall { flood-color: var(--cpl-wall); }
+.cpl-plate[data-fix='rivets'] .cpl-cut { inset: 0 13cqi; }
+.cpl-mark { flex: none; width: 17cqi; height: auto; }
+.cpl-name { display: grid; gap: 1.6cqi; min-width: 0; margin: 0; }
+.cpl-word {
+  font: 700 calc(12cqi * var(--fit, 1))/0.95 var(--cpl-sans);
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+.cpl-plate[data-type='caps'] .cpl-word { font-size: calc(9.6cqi * var(--fit, 1)); letter-spacing: 0.12em; text-transform: uppercase; margin-right: -0.12em; }
+.cpl-plate[data-type='lower'] .cpl-word { letter-spacing: -0.035em; }
+.cpl-kind {
+  font: 700 max(7px, calc(4cqi * var(--fit-kind, 1)))/1.1 var(--cpl-sans);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cpl-cut-2);
+  white-space: nowrap;
+}
+
+/* ------------------------------------------------------------------ drift: a belt in a recessed channel */
+.cpl[data-motion='drift'] .cpl-belt {
+  overflow: hidden;
+  padding: clamp(18px, 2.4cqi, 28px) 0;
+  border-radius: 12px;
+  background: var(--tui-well-fill) var(--tui-well);
+  box-shadow: var(--tui-inset);
+}
+.cpl[data-motion='drift'] .cpl-track {
+  display: flex;
+  width: max-content;
+  animation: cpl-drift var(--cpl-lap, 40s) linear infinite;
+}
+.cpl[data-motion='drift'] .cpl-list {
+  display: flex;
+  gap: 0;
+}
+.cpl[data-motion='drift'] .cpl-item { width: clamp(168px, 17cqi, 210px); margin-left: clamp(16px, 2cqi, 28px); }
+.cpl[data-motion='drift'][data-paused='true'] .cpl-track,
+.cpl[data-motion='drift'][data-visible='false'] .cpl-track,
+.cpl[data-motion='drift'] .cpl-belt:hover .cpl-track,
+.cpl[data-motion='drift'] .cpl-belt:focus-within .cpl-track { animation-play-state: paused; }
+@keyframes cpl-drift { to { transform: translateX(-50%); } }
+
+.cpl-key {
+  appearance: none;
+  flex: none;
+  height: 28px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 6px;
+  font: 700 11.5px/1 var(--cpl-sans);
+  color: var(--tui-ink);
+  cursor: pointer;
+  background:
+    radial-gradient(120% 90% at 50% 0%, var(--tui-hl), transparent 60%),
+    linear-gradient(var(--tui-face-hi), color-mix(in oklab, var(--tui-face-hi) 92%, rgb(var(--tui-sh))));
+  box-shadow: inset 0 1px 0 var(--tui-hl), 0 1.5px 0 var(--tui-skirt), 0 2.5px 3px rgb(var(--tui-sh) / 0.3);
+  transition: transform 70ms var(--tui-ease), box-shadow 70ms var(--tui-ease);
+}
+.cpl-key:active, .cpl-key[aria-pressed='true'] { transform: translateY(1.5px); box-shadow: var(--tui-pressed); }
+.cpl :focus-visible { outline: 2px solid var(--tui-focus); outline-offset: 3px; }
+
+/* ------------------------------------------------------------------ re-composed by the width it is given */
+@container cpl (max-width: 999px) {
+  .cpl-list { grid-template-columns: repeat(var(--cpl-cols-mid, 3), minmax(0, 1fr)); }
+}
+@container cpl (max-width: 599px) {
+  .cpl-head { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .cpl-list { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px 14px; }
+  .cpl-stat { font-size: 12.5px; margin-top: 10px; }
+  .cpl[data-motion='drift'] .cpl-item { width: 156px; margin-left: 14px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* No belt: the plates stand in their grid, and the copy on the belt goes. */
+  .cpl[data-motion='drift'] .cpl-belt { overflow: visible; padding: 0; background: none; box-shadow: none; border-radius: 0; }
+  .cpl[data-motion='drift'] .cpl-track { display: block; width: auto; animation: none; }
+  .cpl[data-motion='drift'] .cpl-list { display: grid; gap: clamp(18px, 2.2cqi, 32px) clamp(14px, 1.8cqi, 26px); }
+  .cpl[data-motion='drift'] .cpl-list--dup { display: none; }
+  .cpl[data-motion='drift'] .cpl-item { width: auto; margin-left: 0; }
+  .cpl-key[data-f='pause'] { display: none; }
+  .cpl-key { transition: none; }
+}

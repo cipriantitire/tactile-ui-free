@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<!-- FAQ Index v0.1.0: Tactile UI
+     Put this file beside the folder and serve them over HTTP (any static
+     server that knows .woff2):
+       ./   faq-drawer.mjs, faq-drawer.css, InstrumentSans-Regular.woff2, InstrumentSans-Bold.woff2, InstrumentSans-OFL.txt, GeistMono-Regular.woff2, GeistMono-OFL.txt
+     No framework, no build step, no image. The cards are native
+     <details>; the questions are in CARDS in faq-drawer.mjs: file your own.
+     finish: 'auto' follows the nearest data-finish around the section. -->
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Questions</title>
+<link rel="stylesheet" href="./faq-drawer.css">
+<style>
+  body { margin: 0; }
+</style>
+</head>
+<body>
+<main id="questions"></main>
+<script type="module">
+import { mount } from './faq-drawer.mjs';
+
+const block = mount(document.getElementById('questions'), {
+  label: "Questions",
+  title: "Asked before you sign.",
+  lead: "The questions every platform team asks in its first week, filed where you can find them. Pull a card to read it.",
+  drawer: "Lode · Q–Z",
+  count: 7,
+  open: "1",
+  single: true,
+  askNote: "Not in the drawer? A person answers, usually within the hour.",
+  askLabel: "Ask us",
+  askHref: "mailto:hello@lode.example",
+  finish: "auto",
+});
+
+// block.open(3)       pull the fourth card, as a click would
+// block.destroy()     removes the section
+</script>
+</body>
+</html>

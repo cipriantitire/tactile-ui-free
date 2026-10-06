@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<!-- Pull-cord Bulb v0.1.0: Tactile UI
+     Put this file beside ./ holding pull-cord.mjs and
+     pull-cord.css. Serve over HTTP (any static server, e.g. `npx serve .`).
+     No framework, no build step, no image, no other dependency. -->
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pull-cord Bulb</title>
+<link rel="stylesheet" href="./pull-cord.css">
+<style>
+  html { background: #d8d7d2; color: #1b1c1e; }
+  @media (prefers-color-scheme: dark) { html:not([data-finish]) { background: #0e0f10; color: #e8e6e1; } }
+  html[data-finish="graphite"] { background: #0e0f10; color: #e8e6e1; }
+  html { transition: background-color 0.3s; }
+  body { margin: 0; min-height: 100vh; display: grid; justify-items: center; font: 15px/1.4 ui-sans-serif, system-ui, sans-serif; }
+  /* The lamp fills its host and hangs from the host's top edge. A 56 × 150 px
+     host under a nav is a header toggle; this one is a hero. */
+  #lamp { width: min(92vw, 760px); height: min(82vh, 620px); }
+</style>
+</head>
+<body>
+<div id="lamp"></div>
+<script type="module">
+import { PullCord } from './pull-cord.mjs';
+
+const lamp = new PullCord(document.getElementById('lamp'), {
+  on: true,
+  shade: "dome",
+  bulb: "clear",
+  finish: "auto",
+  warmth: 2700,
+  cord: 1,
+  light: 315,
+  target: null,
+  label: "Light",
+  sound: false,
+});
+
+lamp.root.addEventListener('change', (e) => {
+  // e.detail.on: the lamp was pulled on or off.
+});
+
+// lamp.pull()                     pull the cord from code (the same animated pull)
+// lamp.set(false)                 switch without a pull and without a change event
+// lamp.checked                    whether it is lit
+// lamp.update({ shade: 'bare' })  any option, in place
+// lamp.destroy()
+</script>
+</body>
+</html>

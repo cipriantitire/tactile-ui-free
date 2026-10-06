@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<!-- Compass v0.1.0: Tactile UI
+     Put this file beside ./ holding compass.mjs and compass.css.
+     Serve over HTTP (any static server, e.g. `npx serve .`). No framework,
+     no build step, no image, no other dependency. -->
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Compass</title>
+<link rel="stylesheet" href="./compass.css">
+<style>
+  html { background: #d8d7d2; color: #1b1c1e; }
+  @media (prefers-color-scheme: dark) { html:not([data-finish]) { background: #0e0f10; color: #e8e6e1; } }
+  html[data-finish="graphite"] { background: #0e0f10; color: #e8e6e1; }
+  body { margin: 0; min-height: 100vh; display: grid; place-items: center; font: 15px/1.4 ui-sans-serif, system-ui, sans-serif; }
+  /* With size "fit" the dial fills this box and follows it; a number is its diameter. */
+  #compass { width: min(90vw, 520px); height: min(80vh, 520px); display: grid; }
+</style>
+</head>
+<body>
+<div id="compass"></div>
+<script type="module">
+import { Compass } from './compass.mjs';
+
+const compass = new Compass(document.getElementById('compass'), {
+  bearing: 274,
+  damping: 0.6,
+  card: "cardinal",
+  finish: "auto",
+  size: "fit",
+  light: 315,
+  readonly: false,
+  display: true,
+  label: "Heading",
+});
+
+compass.root.addEventListener('input', () => { /* compass.value: 0–359, while the bezel turns */ });
+compass.root.addEventListener('change', () => { /* committed: the drag ended or a key was pressed */ });
+
+// compass.setValue(90)                  swing to a bearing (a wind vane, a heading feed)
+// compass.setValue(90, { instant: true })
+// compass.heading                      where the card points right now, mid-swing
+// button.onclick = () => compass.useSensor()   the device's own compass (asks permission)
+// compass.update({ card: 'aviation' }), compass.destroy()
+</script>
+</body>
+</html>

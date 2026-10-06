@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>tactile-odometer</title>
+<link rel="stylesheet" href="./odometer.css">
+<style>
+  body { margin: 0; min-height: 100vh; display: grid; place-content: center; gap: 24px; background: #111; color: #ddd; font: 16px system-ui, sans-serif; }
+  #host { width: min(640px, 92vw); height: 220px; }
+  .row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: center; }
+  button { font: inherit; padding: 8px 16px; color: #ddd; background: #222; border: 1px solid #444; border-radius: 6px; cursor: pointer; }
+  button:hover { background: #2c2c2c; }
+  label { display: flex; gap: 6px; align-items: center; margin-left: 8px; }
+</style>
+</head>
+<body>
+<div id="host"></div>
+<div class="row">
+  <button id="one">+1</button>
+  <button id="thirtyseven">+37</button>
+  <button id="ten">×10</button>
+  <button id="random">random</button>
+  <label><input type="checkbox" id="count"> count</label>
+</div>
+<script type="module">
+  import { Odometer } from './odometer.mjs';
+  const o = new Odometer(document.getElementById('host'), { value: 1099 });
+  const $ = (id) => document.getElementById(id);
+  $('one').onclick = () => o.setValue(o.value + 1);
+  $('thirtyseven').onclick = () => o.setValue(o.value + 37);
+  $('ten').onclick = () => o.setValue(o.value * 10);
+  $('random').onclick = () => o.setValue(Math.floor(Math.random() * 100000));
+  $('count').onchange = (e) => o.count(e.target.checked ? 1 : 0);
+</script>
+</body>
+</html>
