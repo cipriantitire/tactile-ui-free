@@ -6,6 +6,8 @@ Interface parts that behave like the objects they are drawn from: a counter whos
 
 This repo is the free, open-source part of [Tactile UI](https://tactileui.dev): 6 pieces under the MIT licence, to use, change and ship anywhere.
 
+> **Founder seats open Tue 27 Oct, 09:00 UK.** The full library, the UI kit and every future piece for $99, for the first 50. One press for a reminder: [tactileui.dev](https://tactileui.dev)
+
 <p><a href="compass/"><img src="media/compass.png" alt="Compass" width="49%"></a>
 <a href="odometer/"><img src="media/odometer.gif" alt="Odometer" width="49%"></a>
 <a href="pull-cord/"><img src="media/pull-cord.png" alt="Pull-cord Bulb" width="49%"></a>
