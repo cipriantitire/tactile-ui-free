@@ -6,7 +6,7 @@ Interface parts that behave like the objects they are drawn from: a counter whos
 
 This repo is the free, open-source part of [Tactile UI](https://tactileui.dev): 6 pieces under the MIT licence, to use, change and ship anywhere.
 
-> **Founder seats open Tue 27 Oct, 09:00 UK.** The full library, the UI kit and every future piece for $99, for the first 50. One press for a reminder: [tactileui.dev](https://tactileui.dev)
+> **Founder seats are open.** The full library, the UI kit and every future piece for $99, for the first 50: [tactileui.dev/pricing](https://tactileui.dev/pricing)
 
 <p><a href="compass/"><img src="media/compass.png" alt="Compass" width="49%"></a>
 <a href="odometer/"><img src="media/odometer.gif" alt="Odometer" width="49%"></a>
@@ -42,7 +42,7 @@ Every piece works by keyboard and touch, respects reduced motion, and stops draw
 
 ## The whole library
 
-What's here is a sample. [Tactile UI](https://tactileui.dev) has 23 objects, 45 blocks, 102 kit parts and 15 templates in the same language, in every finish, with React, Vue and Svelte wrappers and a custom element for each. More are free with an account; the [Founder Pass](https://tactileui.dev/pricing) opens all of it, and what comes next.
+What's here is a sample. [Tactile UI](https://tactileui.dev) has 39 objects, 55 blocks, 202 kit parts and 26 templates in the same language, in every finish, with React, Vue and Svelte wrappers and a custom element for each. More are free with an account; the [Founder Pass](https://tactileui.dev/pricing) opens all of it, and what comes next.
 
 - [Browse everything](https://tactileui.dev/c/all)
 - [What's free and what's paid](https://tactileui.dev/docs/free-and-paid)
