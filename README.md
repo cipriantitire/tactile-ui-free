@@ -42,7 +42,7 @@ Every piece works by keyboard and touch, respects reduced motion, and stops draw
 
 ## The whole library
 
-What's here is a sample. [Tactile UI](https://tactileui.dev) has 39 objects, 55 blocks, 202 kit parts and 26 templates in the same language, in every finish, with React, Vue and Svelte wrappers and a custom element for each. More are free with an account; the [Founder Pass](https://tactileui.dev/pricing) opens all of it, and what comes next.
+What's here is a sample. [Tactile UI](https://tactileui.dev) has 39 objects, 55 blocks, 210 kit parts and 26 templates in the same language, in every finish, with React, Vue and Svelte wrappers and a custom element for each. More are free with an account; the [Founder Pass](https://tactileui.dev/pricing) opens all of it, and what comes next.
 
 - [Browse everything](https://tactileui.dev/c/all)
 - [What's free and what's paid](https://tactileui.dev/docs/free-and-paid)
